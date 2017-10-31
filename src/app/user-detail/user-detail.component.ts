@@ -20,14 +20,18 @@ export class UserDetailComponent implements OnInit {
 
   }
 
-  async ngOnInit() {
-
-    // ogni volta che cambia il parametro mi sottoscrivo
-    // ad una azione che fa dentro questa callback anonima
-    this._route.params.subscribe(async (param) => {
-
+  ngOnInit() {
+    // mi sottoscrivo al cambiamento del parametro sull'url,
+    // quando accade passo dentro la funzione anonima del subscribe
+    this._route.params.subscribe((param) => {
       this.idUser = param['id'];
-      this.user = await this._userService.GetByID(this.idUser) || new UserDto;
+      this._userService.GetByID(this.idUser)
+      .then( (resp) => {
+        this.user = resp || new UserDto;
+      })
+      .catch( (error) => {
+        console.log(error);
+      })
     });
   }
 

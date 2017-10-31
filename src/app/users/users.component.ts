@@ -24,27 +24,18 @@ export class UsersComponent implements OnInit {
   }
 
   //Page load
-  async ngOnInit() {
-    /*
-    this._userService.Get()
-    .then((resp) =>{
-      this.users = resp;
-      this.author='Federico';
-      this.userCloned = [... this.users]; //clona l'istanza o se separati da virgola li ingloba (spread operator)
-    })
-    .catch( (error) => {
-      console.log(error);
-    })
-    */
+  ngOnInit() {
 
-    //ES7 (stile C#) sintassi più recente
-      try {
-          this.users = await this._userService.Get();
-          this.author='Federico';
-          this.userCloned = [... this.users];
-      } catch (error) {
-          console.log(error);
-      }
+      this._userService.Get()
+      .then((resp) =>{
+        this.users = resp;
+        this.author='Federico';
+        this.userCloned = [... this.users]; //clona l'istanza o se separati da virgola li ingloba (spread operator)
+      })
+      .catch( (error) => {
+        console.log(error);
+      })
+
     }
 
   /**

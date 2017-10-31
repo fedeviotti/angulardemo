@@ -7,12 +7,7 @@ import { environment } from '../../../environments/environment';
 @Injectable()
 export class UserService {
 
-  private users: Array<UserDto> = [
-    new UserDto({id:1, name:'Federico', surname:'Scamuzzi', email:'federico.scamuzzi@gmail.com'}),
-    new UserDto({id:2, name:'Marco', surname:'Rossi', email:'marco.rossi@gmail.com'}),
-    new UserDto({id:3, name:'Federica', surname:'Verdi', email:'federica.verdi@gmail.com'}),
-    new UserDto({id:4, name:'Massimo', surname:'Bianchi', email:'massimo.bianchi@gmail.com'})
-];
+  private users: Array<UserDto> = [];
 
   constructor(private _http: HttpClient) { }
 
@@ -26,7 +21,14 @@ export class UserService {
     return this._http.get<Array<UserDto>>(environment.API_URL + 'User/find').toPromise();
   }
 
-
+  /**
+   * GetByID
+   * recupera utente tramite ID
+   *
+   * @param {number} id
+   * @returns {Promise<UserDto>}
+   * @memberof UserService
+   */
   public async GetByID(id: number) : Promise<UserDto>{
     return this._http.get<UserDto>(environment.API_URL + `User/findById/${id}`).toPromise();
   }
