@@ -37,12 +37,13 @@ export class UsersComponent implements OnInit {
     })
     */
 
+    //ES7 (stile C#) sintassi più recente
       try {
-        this.users = await this._userService.Get();
-        this.author='Federico';
-        this.userCloned = [... this.users];
+          this.users = await this._userService.Get();
+          this.author='Federico';
+          this.userCloned = [... this.users];
       } catch (error) {
-        console.log(error);
+          console.log(error);
       }
     }
 
