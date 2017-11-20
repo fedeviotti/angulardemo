@@ -1,7 +1,6 @@
 import {HttpClient} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { UserDto } from '../models/user-dto';
-import 'rxjs/Rx';
 import { environment } from '../../../environments/environment';
 
 @Injectable()
@@ -22,13 +21,16 @@ export class UserService {
    * @returns {Array<UserDto>}
    * @memberof UserService
    */
-  public async Get() : Promise<Array<UserDto>>{
-    return this._http.get<Array<UserDto>>(environment.API_URL + 'User/find').toPromise();
+  public async Get(skip: number=0, take: number=20) : Promise<Array<UserDto>>{
+    return this._http.get<Array<UserDto>>(environment.API_URL + `User/find?skip=${skip}&take=${take}`).toPromise();
   }
-
 
   public async GetByID(id: number) : Promise<UserDto>{
     return this._http.get<UserDto>(environment.API_URL + `User/findById/${id}`).toPromise();
+  }
+
+  public async GetByUsername(name: string="", skip: number=0, take: number=20) : Promise<Array<UserDto>>{
+    return this._http.get<Array<UserDto>>(environment.API_URL + `User/findByUsername/${name}?skip=${skip}&take=${take}`).toPromise();
   }
 
   /**

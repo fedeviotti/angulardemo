@@ -14,6 +14,8 @@ import { LoginComponent } from './login/login.component';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { ToasterModule } from 'angular2-toaster';
 import { UserService } from './shared/services/user.service';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { SettingsComponent } from './settings/settings.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,8 @@ import { UserService } from './shared/services/user.service';
     FullLayoutComponent,
     UsersComponent,
     UserDetailComponent,
-    LoginComponent
+    LoginComponent,
+    SettingsComponent
   ],
   imports: [
     BrowserModule,
@@ -30,7 +33,8 @@ import { UserService } from './shared/services/user.service';
     FormsModule,
     HttpClientModule,
     AppRoutingModule,
-    ToasterModule
+    ToasterModule,
+    NgxPaginationModule
   ],
   providers: [
     {

@@ -1,51 +1,71 @@
-<div class="panel panel-primary">
-  <div class="panel-heading">
-    <h3 class="panel-title">Panel title</h3>
-  </div>
-  <div class="panel-body">
-      <div class="col-md-12">
+<div>
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h3 class="panel-title">Panel title</h3>
+    </div>
+    <div class="panel-body">
+        <div class="col-md-12">
 
+              <div class="form-group">
+                <input type="text" class="form-control"
+                (ngModelChange)="filtra($event)"
+                [ngModel]="filter"  placeholder="Filtra griglia">
+              </div>
 
-            <div class="form-group">
-              <input type="text" class="form-control" [(ngModel)]="filter"  placeholder="Input field">
             </div>
 
-          </div>
+          <div class="col-md-12">
+    </div>
+  </div>
 
 
 
 
-        <div class="col-md-12">
+  <div class="table-responsive">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Name</th>
+          <th>Surname</th>
+          <th>Email</th>
+          <th>Edit</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of users | paginate: { itemsPerPage: pageSize, currentPage: p, totalItems: total }">
+          <td [innerText]="item.id"></td>
+          <td [innerText]="item.name"></td>
+          <td [innerText]="item.surname"></td>
+          <td [innerText]="item.email"></td>
+          <td>
+            <a [routerLink]="['/fullayout/user',item.id]" class="btn btn-warning">
+              <span class="glyphicon glyphicon-pencil"></span>
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <pagination-controls
+      (pageChange)="pageChanged($event)"
+      directionLinks="true"
+      previousLabel="Previous"
+      nextLabel="Next"
+      screenReaderPaginationLabel="Pagination"
+      screenReaderPageLabel="page"
+      screenReaderCurrentLabel="You're on page">
+    </pagination-controls>
+
+    <div class="pull-left m-l-md">
+      <span><b>Total count:</b><span [ngClass]="{'total-primary': total > 500, 'total-third': total < 500 }"  [innerText]="total"></span></span>
+    </div>
+
   </div>
 </div>
 
 
 
 
-<div class="table-responsive">
-  <table class="table table-hover">
-    <thead>
-      <tr>
-        <th>Id</th>
-        <th>Name</th>
-        <th>Surname</th>
-        <th>Email</th>
-        <th>Edit</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let item of users | search : 'name' : filter">
-        <td [innerText]="item.id"></td>
-        <td [innerText]="item.name"></td>
-        <td [innerText]="item.surname"></td>
-        <td [innerText]="item.email"></td>
-        <td>
-          <a [routerLink]="['/fullayout/user',item.id]" class="btn btn-warning">
-            <span class="glyphicon glyphicon-pencil"></span>
-          </a>
-        </td>
-      </tr>
 
-    </tbody>
-  </table>
-</div>
+
