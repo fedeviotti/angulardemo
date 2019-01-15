@@ -18,7 +18,6 @@
       "prefix": "app",
       "styles": [
         "../node_modules/bootstrap/dist/css/bootstrap.css",
-        "../node_modules/bootstrap/dist/css/bootstrap-theme.css"  ,
         "../node_modules/angular2-toaster/toaster.css",
          "styles.scss"
       ],

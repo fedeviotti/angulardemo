@@ -18,9 +18,9 @@ export class UsersComponent implements OnInit {
   total: number;
 
 
-  users: Array<UserDto> = [];
+  users: Array<UserDto> = new Array<UserDto>();
 
-  private userCloned: Array<UserDto> = [];
+  private userCloned: Array<UserDto> = new Array<UserDto>();
 
   constructor(private _userService: UserService)
   {
@@ -128,10 +128,12 @@ export class UsersComponent implements OnInit {
       } catch (error) {
         reject(error);
       }
-    })
+    });
+  }
 
-
-
+  editable(row: UserDto){
+    this.users.forEach( xx => (xx.edit=false) );
+    row.edit = true;
   }
 
 }

@@ -1,6 +1,8 @@
 import {Router} from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { ToasterService } from 'angular2-toaster';
+import { AuthService } from '../shared/services/auth.service';
+import { loginData } from '../shared/models/index';
 
 @Component({
   selector: 'app-login',
@@ -9,11 +11,11 @@ import { ToasterService } from 'angular2-toaster';
 })
 export class LoginComponent implements OnInit {
 
-  username: String = '';
-  password: String = '';
+  loginData: loginData = new loginData();
 
   constructor(private _route: Router,
-              private toasterService: ToasterService) {
+              private toasterService: ToasterService,
+            private _authService: AuthService) {
 
   }
 
@@ -21,12 +23,17 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    if (!this.username || !this.password) {
+    if (!this.loginData.username || !this.loginData.password) {
       this.toasterService.pop('warning', 'Attenzione', 'Username e password vuoti');
       return;
     }
 
-    this._route.navigate(['/fullayout/users']);
+    this._authService.login(this.loginData).then( () => {
+      this._route.navigate(['/fullayout/users']);
+    }).catch( (err) => {
+      this.toasterService.pop('error', 'Errore', err.message || err.status);
+    });
+
   }
 
 }

@@ -16,6 +16,9 @@ import { ToasterModule } from 'angular2-toaster';
 import { UserService } from './shared/services/user.service';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { SettingsComponent } from './settings/settings.component';
+import { AuthService } from './shared/services/auth.service';
+import { AuthInterceptorService } from './shared/services/auth-interceptor.service';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -38,14 +41,17 @@ import { SettingsComponent } from './settings/settings.component';
   ],
   providers: [
     {
-      provide: LOCALE_ID,
-      useValue: 'it_IT'
-    },
-    {
       provide: LocationStrategy,
       useClass: HashLocationStrategy
     },
-    UserService
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
+      multi: true
+    },
+    UserService,
+    AuthService,
+    AuthInterceptorService
   ],
   bootstrap: [AppComponent]
 })

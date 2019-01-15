@@ -34,15 +34,14 @@ export class UserService {
   }
 
   /**
-   * Add new user
+   * update user
    *
    * @param {UserDto} user
-   * @returns {Array<UserDto>}
+   * @returns {Promise<UserDto>}
    * @memberof UserService
    */
-  public Add(user: UserDto) : Array<UserDto>{
-    this.users.push(user);
-    return this.users;
+  public async update(user: UserDto) : Promise<UserDto>{
+    return this._http.put<UserDto>(environment.API_URL + `User/find`, user).toPromise();
   }
 
 }

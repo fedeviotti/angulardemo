@@ -33,12 +33,28 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let item of users | paginate: { itemsPerPage: pageSize, currentPage: p, totalItems: total }">
+        <tr (click)="editable(item)" *ngFor="let item of users | paginate: {
+                                        itemsPerPage: pageSize,
+                                        currentPage: p,
+                                        totalItems: total }">
           <td [innerText]="item.id"></td>
-          <td [innerText]="item.name"></td>
-          <td [innerText]="item.surname"></td>
-          <td [innerText]="item.email"></td>
+
+          <td *ngIf="!item.edit" [innerText]="item.name"></td>
+          <td *ngIf="item.edit">
+            <input type="text" name="name" class="form-control" [(ngModel)]="item.name">
+          </td>
+
+          <td *ngIf="!item.edit" [innerText]="item.surname"></td>
+          <td *ngIf="item.edit">
+              <input type="text" name="surname" class="form-control" [(ngModel)]="item.surname">
+            </td>
+
+          <td *ngIf="!item.edit" [innerText]="item.email"></td>
+          <td *ngIf="item.edit">
+              <input type="email" name="email" class="form-control" [(ngModel)]="item.email">
+            </td>
           <td>
+
             <a [routerLink]="['/fullayout/user',item.id]" class="btn btn-warning">
               <span class="glyphicon glyphicon-pencil"></span>
             </a>
@@ -63,9 +79,3 @@
 
   </div>
 </div>
-
-
-
-
-
-

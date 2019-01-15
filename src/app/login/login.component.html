@@ -12,8 +12,8 @@
           </form>
 
           <form class="login-form" >
-              <input type="email" name="usernames" [(ngModel)]="username" placeholder="username .." required/>
-              <input type="password" name="passwords" [(ngModel)]="password" required />
+              <input type="email" name="usernames" [(ngModel)]="loginData.username" placeholder="username .." required/>
+              <input type="password" name="passwords" [(ngModel)]="loginData.password" required />
               <button type="submit" (click)="login()">login</button>
               <p class="message">Not registered?
                   <a href="#">Create an account</a>
